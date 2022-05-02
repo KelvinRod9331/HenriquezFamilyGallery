@@ -1,0 +1,21 @@
+import { useEffect } from "react";
+import useStorage from "../hooks/useStorage";
+import { motion } from "framer-motion";
+
+const ProgressBar = ({ file, setFile }) => {
+  const { url, progress } = useStorage(file);
+  useEffect(() => {
+    if (url) {
+      setFile(null);
+    }
+  }, [url, setFile]); //The array is meant for dependencies any state or outside functions will be passed through to the dependencies array. Also listen to changes made for the dependencies
+  return (
+    <motion.div
+      className="progress-bar"
+      initial={{ width: 0 }}
+      animate={{ width: progress + "%" }}
+    >{`${progress}%`}</motion.div>
+  );
+};
+
+export default ProgressBar;
